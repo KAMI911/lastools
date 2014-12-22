@@ -818,7 +818,9 @@ static const short EPSG_Fiji_1956_UTM60_South = 3141;
 static const short EPSG_Fiji_1956_UTM1_South = 3142;
 static const short EPSG_Fiji_Map_Grid_1986 = 3460;
 static const short EPSG_NAD83_NSRS2007_Maryland_ftUS = 3582;
+static const short EPSG_ETRS89_Portugal_TM06 = 3763;
 static const short EPSG_Slovene_National_Grid_1996 = 3794;
+static const short EPSG_ETRS89_GK24FIN = 3878;
 static const short EPSG_MGI_1901_Slovene_National_Grid = 3912;
 static const short EPSG_RGF93_CC42 = 3942;
 static const short EPSG_RGF93_CC43 = 3943;
@@ -900,7 +902,9 @@ static const EPSGcode epsg_code_list[] =
   EPSGcode(EPSG_Fiji_1956_UTM1_South, "Fiji 1956 UTM1"),
   EPSGcode(EPSG_Fiji_Map_Grid_1986, "Fiji Map Grid 1986"),
   EPSGcode(EPSG_NAD83_NSRS2007_Maryland_ftUS, "NSRS2007 Maryland"),
+  EPSGcode(EPSG_ETRS89_Portugal_TM06, "ETRS89 Portugal TM06"),
   EPSGcode(EPSG_Slovene_National_Grid_1996, "Slov. Nat. Grid 1996"),
+  EPSGcode(EPSG_ETRS89_GK24FIN, "ETRS89 / GK24FIN"),
   EPSGcode(EPSG_MGI_1901_Slovene_National_Grid, "Slov. Nat. Grid 1901"),
   EPSGcode(EPSG_RGF93_CC42, "RGF93 CC42"),
   EPSGcode(EPSG_RGF93_CC43, "RGF93 CC43"),
@@ -4330,6 +4334,15 @@ bool GeoProjectionConverter::set_epsg_code(short value, char* description, bool 
       if (description) sprintf(description, "NAD83(NSRS2007) / Maryland (ftUS)");
       return true;
     }
+    else if (value == EPSG_ETRS89_Portugal_TM06)
+    {
+      set_reference_ellipsoid(GEO_ELLIPSOID_NAD83); // GRS 1980
+      set_transverse_mercator_projection(0.0, 0.0, 39.66825833333333, -8.133108333333334, 1.0, 0, source); // "ETRS89 / Portugal TM06"
+      set_geokey(value, source);
+      set_coordinates_in_meter(source);
+      if (description) sprintf(description, "ETRS89 / Portugal TM06");
+      return true;
+    }
     else if (value == EPSG_Slovene_National_Grid_1996)
     {
       set_reference_ellipsoid(GEO_ELLIPSOID_NAD83); // GRS 1980
@@ -4338,6 +4351,15 @@ bool GeoProjectionConverter::set_epsg_code(short value, char* description, bool 
       set_coordinates_in_meter(source);
       if (description) sprintf(description, "Slovenia 1996 / Slovene National Grid");
       return true;
+    }
+    else if (value == EPSG_ETRS89_GK24FIN)
+    {
+      set_reference_ellipsoid(GEO_ELLIPSOID_NAD83); // GRS 1980
+      set_transverse_mercator_projection(24500000.0, 0.0, 0.0, 24.0, 1.0, 0, source); // "ETRS89 / GK24FIN"
+      set_geokey(value, source);
+      set_coordinates_in_meter(source);
+      if (description) sprintf(description, "ETRS89 / GK24FIN");
+      return true;    
     }
     else if (value == EPSG_MGI_1901_Slovene_National_Grid)
     {

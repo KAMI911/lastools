@@ -298,6 +298,12 @@ BOOL LASreaderLAS::open(ByteStreamIn* stream, BOOL peek_only)
     return FALSE;
   }
 
+  // check core header contents
+  if (!header.check())
+  {
+    return FALSE;
+  }
+
   // special handling for LAS 1.3
   if ((header.version_major == 1) && (header.version_minor >= 3))
   {
@@ -385,12 +391,6 @@ BOOL LASreaderLAS::open(ByteStreamIn* stream, BOOL peek_only)
       fprintf(stderr,"ERROR: reading %d bytes of data into header.user_data_in_header\n", header.user_data_in_header_size);
       return FALSE;
     }
-  }
-
-  // check header contents
-  if (!header.check())
-  {
-    return FALSE;
   }
 
   npoints = (header.number_of_point_records ? header.number_of_point_records : header.extended_number_of_point_records);
@@ -1343,6 +1343,23 @@ BOOL LASreaderLAS::read_point_default()
 */
     p_count++;
     return TRUE;
+  }
+  else
+  {
+    if (reader)
+    {
+      if (reader->done() == FALSE)
+      {
+        fprintf(stderr,"ERROR: '%s' when reaching end of encoding\n", reader->error());
+        p_count--;
+      }
+      if (reader->warning())
+      {
+        fprintf(stderr,"WARNING: '%s'\n", reader->warning());
+      }
+      delete reader;
+      reader = 0;
+    }
   }
   return FALSE;
 }

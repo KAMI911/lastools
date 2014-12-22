@@ -1,3 +1,7 @@
+18 December 2014 -- lascanopy: added option '-all' and fixed scaling bug for '-int_d 0 64 128'
+18 December 2014 -- LASlib: different scale_factors/offsets are now possible with '-buffered 25'
+18 December 2014 -- lasgrid: fixed option '-rgb' and added new area-normalized '-point_density'
+18 December 2014 -- laszip: use '-check' to find truncations and/or bit-errors in LAZ files
 16 November 2014 -- LASlib: improved detection & reporting of file truncation and/or LAZ bit-errors
 16 November 2014 -- lascanopy: several minor bug fixes and significantly improved GUI menu options
 20 October 2014 -- las2iso: fixed miss-spelled '-set_file_source_ID' to '-set_file_source_id'

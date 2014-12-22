@@ -45,7 +45,7 @@
 #ifndef LAS_DEFINITIONS_HPP
 #define LAS_DEFINITIONS_HPP
 
-#define LAS_TOOLS_VERSION 141117
+#define LAS_TOOLS_VERSION 141218
 
 #include <stdio.h>
 #include <string.h>
@@ -1488,7 +1488,7 @@ public:
   {
     if (strncmp(file_signature, "LASF", 4) != 0)
     {
-      fprintf(stderr,"ERROR: wrong file signature '%s'\n", file_signature);
+      fprintf(stderr,"ERROR: wrong file signature '%4s'\n", file_signature);
       return FALSE;
     }
     if ((version_major != 1) || (version_minor > 4))
